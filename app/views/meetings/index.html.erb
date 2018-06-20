@@ -37,7 +37,12 @@ See doc/COPYRIGHT.md for more details.
 <% end %>
 
 <% if @meetings_by_start_year_month_date.empty? -%>
-  <%= no_results_box %>
+  <div class="no-data"> 
+    <div class="no-data-content"> 
+      <span class="no-data-image no-meeting-img"></span> 
+      <span class="no-data-title">There is currently nothing to display.</span> 
+    </div>
+  </div>
 <% else -%>
 <div class="meetings meetings_by_month_year" id="activity">
 <% @meetings_by_start_year_month_date.each do |year,meetings_by_start_month_date| -%>
@@ -67,7 +72,6 @@ See doc/COPYRIGHT.md for more details.
 <% end -%>
 
 <p class="pagination">
-  <%= link_to_content_update(l(:label_today), page: @page_of_today, anchor: Date.today.strftime("%m-%d-%Y")) %>
   <%= pagination_links_full @meetings, :container => false %>
 </p>
 
