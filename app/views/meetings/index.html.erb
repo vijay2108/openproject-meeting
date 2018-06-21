@@ -48,8 +48,9 @@ See doc/COPYRIGHT.md for more details.
 <% @meetings_by_start_year_month_date.each do |year,meetings_by_start_month_date| -%>
 <% meetings_by_start_month_date.each do |month,meetings_by_start_date| -%>
   <h3 class="month_year"><%= ::I18n.t('date.month_names')[month] + " #{year}" %></h3>
-  <div class="meetings_by_date">
+  <div class="meetings_by_date widget-boxes -flex">
   <% meetings_by_start_date.each do |date,meetings| -%>
+   <div class="widget-box">
     <h4 id="<%= date.strftime("%m-%d-%Y") %>" class="date"><%= format_activity_day(date) %></h4>
     <dl class="meetings">
     <% meetings.each do |meeting| -%>
@@ -64,6 +65,7 @@ See doc/COPYRIGHT.md for more details.
       </dd>
     <% end -%>
     </dl>
+    </div>
   <% end -%>
   </div>
 <% end -%>
