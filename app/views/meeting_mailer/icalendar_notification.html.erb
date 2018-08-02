@@ -1,11 +1,168 @@
-<h1><%= link_to(@meeting.project.name, project_url(@meeting.project)) %>: <%= link_to(@meeting.title, meeting_url(@meeting)) %></h1>
-<em><%= @meeting.author %></em>
+<%#-- copyright
+OpenProject is a project management system.
+Copyright (C) 2012-2017 the OpenProject Foundation (OPF)
 
-<p><%= t(:text_notificiation_invited) %></p>
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License version 3.
 
-<ul>
-<li><%=t :label_meeting_date_time %>: <%= format_date @meeting.start_time %> <%= format_time @meeting.start_time, false %>-<%= format_time @meeting.end_time, false %> <%= Time.zone %></li>
-<li><%=Meeting.human_attribute_name(:location) %>: <%= @meeting.location %></li>
-<li><%=Meeting.human_attribute_name(:participants_invited) %>: <%= @meeting.participants.invited.sort.join("; ") %></li>
-<li><%=Meeting.human_attribute_name(:participants_attended) %>: <%= @meeting.participants.attended.sort.join("; ") %></li>
-</ul>
+OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+Copyright (C) 2006-2017 Jean-Philippe Lang
+Copyright (C) 2010-2013 the ChiliProject Team
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+See doc/COPYRIGHT.rdoc for more details.
+
+++#%>
+
+<%#-- copyright
+OpenProject is a project management system.
+Copyright (C) 2012-2017 the OpenProject Foundation (OPF)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License version 3.
+
+OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+Copyright (C) 2006-2017 Jean-Philippe Lang
+Copyright (C) 2010-2013 the ChiliProject Team
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+See doc/COPYRIGHT.rdoc for more details.
+
+++#%>
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+        <tr>
+            <!-- Emailer Starts Here-->
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" width="690" style="margin-bottom:30px; border-collapse:collapse;background-color: #ecf6fe;color:#404040;border-collapse:collapse" bgcolor="#ecf6fe">
+
+                    <tbody>
+                        <tr>
+                            <td style="padding:0;border-collapse:collapse;padding:15px 0">
+                                <table cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="middle" style="padding:0;border-collapse:collapse;vertical-align:middle;font-family:Arial,sans-serif;font-size:14px;line-height:20px">
+                                                <a href="<%= root_url %>users/<%= @meeting.author_id %>" style="color:#41a3f3;text-decoration:none" target="_blank" ><%= @meeting.author %></a>
+                                                <strong>Scheduled</strong> meeting
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                          <td style="padding:0;border-collapse:collapse;padding:0">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse:collapse;border-spacing:0;border-collapse:separate">
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding:0;border-collapse:collapse;color:#ffffff;padding:0 15px 0 16px;height:15px;background-color:#ffffff;border-left:1px solid #e4f2fe;border-top:1px solid #e4f2fe;border-right:1px solid #e4f2fe;border-bottom:0;border-top-right-radius:5px;border-top-left-radius:5px;height:10px;line-height:10px;padding:0 15px 0 16px" height="10" bgcolor="#ffffff">&nbsp;</td>
+                                        </tr>                            
+                                        <tr>
+                                            <td style="padding:0;border-collapse:collapse;border-left:1px solid #e4f2fe;border-right:1px solid #e4f2fe;border-top:0;border-bottom:0;padding:0 15px 0 16px;background-color:#ffffff" bgcolor="#ffffff">
+                                                <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse:collapse">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align:top;padding:0;border-collapse:collapse;padding-right:5px;font-size:18px;line-height:22px;padding-top:10px;">
+                                                                <span style="font-family:Arial,sans-serif;padding:0;font-size:18px;line-height:22px;vertical-align:middle">
+                                                                    <a href="<%= meeting_url(@meeting) %>" style="color:#404040;text-decoration:none" target="_blank"><%= @meeting.title %></a>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:0;border-collapse:collapse;border-left:1px solid #e4f2fe;border-right:1px solid #e4f2fe;border-top:0;border-bottom:0;padding:0 15px 0 16px;background-color:#ffffff;padding-bottom:5px"bgcolor="#ffffff">
+                                                <table style="border-collapse:collapse">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th style="color:#868686;font:normal 13px/19px Arial,sans-serif;text-align:left;vertical-align:top;padding:5px 0">Project:</th>
+                                                            <td style="padding:0;border-collapse:collapse;font:normal 13px/19px Arial,sans-serif;padding:5px 0 5px 15px;vertical-align:top">
+                                                                <a href="<%= project_url(@meeting.project) %>" style="color:#41a3f3;text-decoration:none" target="_blank"><%= @meeting.project.name %></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="color:#868686;font:normal 13px/19px Arial,sans-serif;text-align:left;vertical-align:top;padding:5px 0"><%=t :label_meeting_date_time %>:</th>
+                                                            <td style="padding:0;border-collapse:collapse;font:normal 13px/19px Arial,sans-serif;padding:5px 0 5px 15px;vertical-align:top">
+                                                                <span><%= format_date @meeting.start_time %> <%= format_time @meeting.start_time, false %>-<%= format_time @meeting.end_time, false %> <%= Time.zone %></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="color:#868686;font:normal 13px/19px Arial,sans-serif;text-align:left;vertical-align:top;padding:5px 0"><%=Meeting.human_attribute_name(:location) %>:</th>
+                                                            <td style="padding:0;border-collapse:collapse;font:normal 13px/19px Arial,sans-serif;padding:5px 0 5px 15px;vertical-align:top">
+                                                                <span><%= @meeting.location %></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="color:#868686;font:normal 13px/19px Arial,sans-serif;text-align:left;vertical-align:top;padding:5px 0"><%=Meeting.human_attribute_name(:participants_invited) %>:</th>
+                                                            <td style="padding:0;border-collapse:collapse;font:normal 13px/19px Arial,sans-serif;padding:5px 0 5px 15px;vertical-align:top">
+                                                                <span><%= @meeting.participants.invited.sort.join("; ") %></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="color:#868686;font:normal 13px/19px Arial,sans-serif;text-align:left;vertical-align:top;padding:5px 0"><%=Meeting.human_attribute_name(:participants_attended) %>:</th>
+                                                            <td style="padding:0;border-collapse:collapse;font:normal 13px/19px Arial,sans-serif;padding:5px 0 5px 15px;vertical-align:top">
+                                                                <span><%= @meeting.participants.attended.sort.join("; ") %></span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-collapse:collapse;border-left:1px solid #e4f2fe;border-right:1px solid #e4f2fe;border-top:0;border-bottom:0;padding:0 15px 0 16px;background-color:#ffffff"bgcolor="#ffffff">
+                                                <table cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-top: 1px solid #ddeefd;">
+                                                    <tbody>                                        
+                                                        <tr>
+                                                            <td width="100%" style="padding:0;border-collapse:collapse;color:#868686;font-size:11px;line-height:18px;font-family:Arial,sans-serif">
+                                                                This message was sent by W-Project
+                                                            </td>
+                                                            <td style="padding:0;border-collapse:collapse;padding:10px 0 5px 0;">
+                                                                <img src="<%= root_url %>wproject-logo.png" alt="W-Project logo" title="W-Project logo" width="115" height="28">
+                                                            </td>                                                            
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:0;border-collapse:collapse;color:#ffffff;padding:0 15px 0 16px;height:5px;line-height:5px;background-color:#ffffff;border-top:0;border-left:1px solid #e4f2fe;border-bottom:1px solid #e4f2fe;border-right:1px solid #e4f2fe;border-bottom-right-radius:5px;border-bottom-left-radius:5px;" height="5" bgcolor="#ffffff">&nbsp;</td>
+                                        </tr>
+                                </tbody>
+                                </table>
+                          </td>
+                        </tr>
+
+                    </tbody>
+                  </table>
+            </td>
+        </tr>
+</table>
