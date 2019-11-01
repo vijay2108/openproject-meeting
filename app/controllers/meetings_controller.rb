@@ -47,6 +47,12 @@ class MeetingsController < ApplicationController
                 .page(page)
                 .per_page(per_page_param)
 
+    @all_meetings = Array.new
+    @meetings.each do |meeting|
+      @all_meetings << Hash[*['title', meeting.title, 'start', (meeting.start_time.strftime("%Y-%m-%dT%H:%M:%S")), 'end', (meeting.start_time.strftime("%Y-%m-%dT")+Time.parse(format_time meeting.end_time, false).strftime("%H:%M:%S"))]]
+    end
+    @all_meetings
+
     @meetings_by_start_year_month_date = Meeting.group_by_time(@meetings)
   end
 
