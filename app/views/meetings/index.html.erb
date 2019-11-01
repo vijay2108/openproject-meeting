@@ -19,12 +19,15 @@ See doc/COPYRIGHT.md for more details.
 
 ++#%>
 
+<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+
 <% html_title l(:label_meeting_plural) %>
 
-<%= toolbar title: l(:label_meeting_plural) do %>
+<%= toolbar title: l(:label_meeting_plural), project: @project.name.titleize do %>
   <% if authorize_for(:meetings, :new) %>
     <li class="toolbar-item">
-      <a href="<%= new_meeting_path %>"
+      <a href="#<%#= new_meeting_path %>"
          id="add-meeting-button"
          title="<%= I18n.t(:label_meeting_new) %>"
          arial-label="<%= I18n.t(:label_meeting_new) %>"
@@ -35,46 +38,136 @@ See doc/COPYRIGHT.md for more details.
     </li>
   <% end %>
 <% end %>
+<br /><br /><br /><br />
 
+
+<div id="calendar"></div>
+
+
+<br /><br /><br /><br />
 <% if @meetings_by_start_year_month_date.empty? -%>
-  <div class="no-data"> 
-    <div class="no-data-content"> 
-      <span class="no-data-image no-meeting-img"></span> 
-      <span class="no-data-title">There is currently nothing to display.</span> 
+  <div class="no-data">
+    <div class="no-data-content">
+      <span class="no-data-image no-meeting-img"></span>
+      <span class="no-data-title">There is currently nothing to display.</span>
     </div>
   </div>
 <% else -%>
-<div class="meetings meetings_by_month_year" id="activity">
-<% @meetings_by_start_year_month_date.each do |year,meetings_by_start_month_date| -%>
-<% meetings_by_start_month_date.each do |month,meetings_by_start_date| -%>
-  <h3 class="month_year"><%= ::I18n.t('date.month_names')[month] + " #{year}" %></h3>
-  <div class="meetings_by_date widget-boxes -flex">
-  <% meetings_by_start_date.each do |date,meetings| -%>
-   <div class="widget-box">
-    <h4 id="<%= date.strftime("%m-%d-%Y") %>" class="date"><%= format_activity_day(date) %></h4>
-    <dl class="meetings">
-    <% meetings.each do |meeting| -%>
-      <dt class="meeting" id="meeting-<%= meeting.id %>">
-        <%= link_to h(meeting.title), :controller => '/meetings', :action => 'show', :id => meeting %>
-      </dt>
-      <dd class="meeting" id="meeting-<%= meeting.id %>">
-        <p><strong><%= Meeting.human_attribute_name(:time) %></strong>: <%= format_time meeting.start_time, false %>-<%= format_time meeting.end_time, false %></p>
-        <p><strong><%= Meeting.human_attribute_name(:location) %></strong>: <%=h meeting.location %></p>
-        <p><strong><%= Meeting.human_attribute_name(:participants_invited) %></strong> (<%= meeting.participants.select(&:invited).count %>): <%= format_participant_list meeting.participants.select(&:invited) %></p>
-        <p><strong><%= Meeting.human_attribute_name(:participants_attended) %></strong> (<%= meeting.participants.select(&:attended).count %>): <%= format_participant_list meeting.participants.select(&:attended) %></p>
-      </dd>
+  <div class="meetings meetings_by_month_year" id="activity">
+    <% @meetings_by_start_year_month_date.each do |year,meetings_by_start_month_date| -%>
+      <% meetings_by_start_month_date.each do |month,meetings_by_start_date| -%>
+        <h3 class="month_year"><%= ::I18n.t('date.month_names')[month] + " #{year}" %></h3>
+        <div class="meetings_by_date widget-boxes -flex">
+          <% meetings_by_start_date.each do |date,meetings| -%>
+            <div class="widget-box">
+              <h4 id="<%= date.strftime("%m-%d-%Y") %>" class="date"><%= format_activity_day(date) %></h4>
+              <dl class="meetings">
+                <% meetings.each do |meeting| -%>
+                  <dt class="meeting" id="meeting-<%= meeting.id %>">
+                    <%= link_to h(meeting.title), :controller => '/meetings', :action => 'show', :id => meeting %>
+                  </dt>
+                  <dd class="meeting" id="meeting-<%= meeting.id %>">
+                    <p><strong><%= Meeting.human_attribute_name(:time) %></strong>: <%= format_time meeting.start_time, false %>-<%= format_time meeting.end_time, false %></p>
+                    <p><strong><%= Meeting.human_attribute_name(:location) %></strong>: <%=h meeting.location %></p>
+                    <p><strong><%= Meeting.human_attribute_name(:participants_invited) %></strong> (<%= meeting.participants.select(&:invited).count %>): <%= format_participant_list meeting.participants.select(&:invited) %></p>
+                    <p><strong><%= Meeting.human_attribute_name(:participants_attended) %></strong> (<%= meeting.participants.select(&:attended).count %>): <%= format_participant_list meeting.participants.select(&:attended) %></p>
+                  </dd>
+                <% end -%>
+              </dl>
+            </div>
+          <% end -%>
+        </div>
+      <% end -%>
     <% end -%>
-    </dl>
-    </div>
-  <% end -%>
   </div>
-<% end -%>
-<% end -%>
-</div>
 <% end -%>
 
 <p class="pagination">
   <%= pagination_links_full @meetings, :container => false %>
 </p>
 
-<%= render :partial => 'shared/meeting_header' %>
+
+<div id="add-meeting-button" class="aside-panel-outer">
+  <div class="aside-panel aside-panel-first">
+    <div class="aside-content px-30">
+      <div class="aside-header d-flex justify-content-between align-items-center">
+        <h6 class="m-0"><%= l(:label_meeting_new) %></h6>
+        <div class="close-btn close-panel-btn"><a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a></div>
+      </div>
+      <div class="aside-body create-news py-20">
+        <%= labelled_tabular_form_for @meeting, :url => {:controller => '/meetings', :action => 'create', :project_id => @project}, :html => {:id => 'meeting-form'} do |f| -%>
+          <%= render :partial => 'meetings/form', :locals => {:f => f} %>
+          <div class="aside-footer text-right">
+            <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>
+            <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-btn' %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%#= render :partial => 'shared/meeting_header' %>
+
+<script type="text/javascript">
+    jQuery('#calendar').fullCalendar({
+        plugins: [ 'bootstrap' ],
+        buttonText: {today: 'Today', month: 'Month', week: 'Week', day: 'Day', listMonth: 'List'},
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay,listMonth'
+        },
+        editable: true,
+        droppable: true,
+        schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+        events: [
+            {
+                title: 'All Day Event',
+                start: '2019-10-01'
+            },
+            {
+                title: 'Long Event',
+                start: '2019-10-07',
+                end: '2019-10-10'
+            },
+            {
+                groupId: '999',
+                title: 'Repeating Event',
+                start: '2019-10-09T16:00:00'
+            },
+            {
+                groupId: '999',
+                title: 'Repeating Event',
+                start: '2019-10-16T16:00:00'
+            },
+            {
+                title: 'Conference',
+                start: '2019-10-11',
+                end: '2019-10-13'
+            },
+            {
+                title: 'Meeting',
+                start: '2019-10-12T10:30:00',
+                end: '2019-10-12T12:30:00'
+            },
+            {
+                title: 'Lunch',
+                start: '2019-10-12T12:00:00'
+            },
+            {
+                title: 'Meeting',
+                start: '2019-10-12T14:30:00'
+            },
+            {
+                title: 'Birthday Party',
+                start: '2019-10-13T07:00:00'
+            },
+            {
+                title: 'Click for Google',
+                url: 'http://google.com/',
+                start: '2019-10-28'
+            }
+        ]
+    });
+</script>
