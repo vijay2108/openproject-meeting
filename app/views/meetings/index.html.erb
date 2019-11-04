@@ -25,10 +25,10 @@ See doc/COPYRIGHT.md for more details.
   <% if authorize_for(:meetings, :new) %>
     <li class="toolbar-item">
       <a href="#<%#= new_meeting_path %>"
-         id="add-meeting-button"
+         data-target="add-meeting-button"         
          title="<%= I18n.t(:label_meeting_new) %>"
          arial-label="<%= I18n.t(:label_meeting_new) %>"
-         class="button -alt-highlight">
+         class="button -alt-highlight first-modal">
         <%= op_icon('button--icon icon-add') %>
         <span class="button--text"><%= t(:label_meeting) %></span>
       </a>
@@ -85,7 +85,7 @@ See doc/COPYRIGHT.md for more details.
     <div class="aside-content px-30">
       <div class="aside-header d-flex justify-content-between align-items-center">
         <h6 class="m-0"><%= l(:label_meeting_new) %></h6>
-        <div class="close-btn close-panel-btn"><a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a></div>
+        <div class="close-panel-first"><a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a></div>
       </div>
       <div class="aside-body create-news py-20">
         <%= labelled_tabular_form_for @meeting, :url => {:controller => '/meetings', :action => 'create', :project_id => @project}, :html => {:id => 'meeting-form'} do |f| -%>
@@ -95,6 +95,57 @@ See doc/COPYRIGHT.md for more details.
             <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-btn' %>
         <% end %>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="aside-panel aside-panel-second metting-objectives">
+    <div class="aside-content px-30">
+      <div class="aside-header d-flex justify-content-between align-items-center">
+        <h6 class="m-0">MEETING OBJECTIVES</h6>
+        <div class="close-panel-second">
+          <a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a>
+        </div>
+      </div>
+      <div class="aside-body create-news py-20">
+        <section class="form--section create-metting">
+					<div class="form--field">
+            <span class="form--field-container">
+              <span class="form--text-field-container -wide">
+                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>                
+              </span>
+            </span>
+					</div>
+          <div class="form--field">
+						<label class="form--label -required" title="Title" for="meeting_title">EXPECTED RESULTS</label>
+            <span class="form--field-container">
+              <span class="form--text-field-container -wide">
+                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>                
+              </span>
+            </span>
+					</div>
+        </section>
+      </div>
+    </div>
+  </div>			
+  <div class="aside-panel aside-panel-third add-guests">
+    <div class="aside-content px-30">
+      <div class="aside-header d-flex justify-content-between align-items-center">
+        <h6 class="m-0">ADD GUESTS</h6>
+        <div class="close-panel-third">
+          <a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a>
+        </div>
+      </div>
+      <div class="aside-body create-news py-20">
+        <section class="form--section create-metting">
+					<div class="form--field">
+            <label class="form--label -required" title="Title" for="meeting_title">NAME</label>
+            <span class="form--field-container">
+              <span class="form--text-field-container -wide">
+                <input class="form--text-field" aria-required="true" type="text">        
+              </span>
+            </span>
+					</div>          
+        </section>
       </div>
     </div>
   </div>

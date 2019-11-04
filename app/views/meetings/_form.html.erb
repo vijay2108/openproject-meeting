@@ -21,7 +21,91 @@ See doc/COPYRIGHT.md for more details.
 
 <%= error_messages_for 'meeting' %>
 
-<section class="form--section">
+<section class="form--section create-metting">
+  <div class="form--field">
+    <%= f.text_field :title, :required => true, :size => 60, container_class: '-wide' %>
+  </div>
+  <div class="form--field d-flex flex-row justify-content-between">
+    <div>
+      <label class="form--label -required" title="Title" for="meeting_title">MEETING OBJECTIVES</label>
+    </div>
+    <div class="plus-icon second-modal" data-target="add-meeting-button"><i class="button--icon icon-add" aria-hidden="true"></i></div>
+  </div>
+  <div class="title">People</div>
+  <div class="form--field d-flex flex-row justify-content-between">
+    <div><label class="form--label -required" title="Title" for="meeting_title">ADD GUESTS</label></div>
+    <div class="plus-icon third-modal" data-target="add-meeting-button"><i class="button--icon icon-add" aria-hidden="true"></i></div>
+  </div>
+  <div class="title">Estimates and Time</div>
+  <div class="form--field d-flex flex-row justify-content-between mb-0">
+    <div class="title">All-day</div>
+    <div class="switch-buttons">
+      <label class="label-switch switch-info">
+        <input type="checkbox" class="switch switch-input status" name="status" id="status" value="1" checked="checked">
+        <span class="lable"></span> </label>
+    </div>
+  </div>
+
+  <div class="calendar d-flex">
+    <div class="form--field day">
+      <label class="form--label -required" title="Title" for="meeting_title">Day</label>
+      <span class="form--field-container">
+        <span class="form--text-field-container -wide">
+          <input class="form--text-field" aria-required="true" type="text">        
+        </span>
+      </span>
+    </div>
+    <div class="form--field hour">
+      <label class="form--label -required" title="Title" for="meeting_title">Hour</label>
+      <span class="form--field-container">
+        <span class="form--text-field-container -wide">
+          <input class="form--text-field" aria-required="true" type="text">        
+        </span>
+      </span>
+    </div>
+    <div class="form--field minut">
+      <label class="form--label -required" title="Title" for="meeting_title">Minute</label>
+      <span class="form--field-container">
+        <span class="form--text-field-container -wide">
+          <input class="form--text-field" aria-required="true" type="text">        
+        </span>
+      </span>
+    </div> 
+  </div>
+
+  <div class="form--field">
+    <label for="meeting-form-duration" class="form--label -required">
+      <span><%= Meeting.human_attribute_name(:duration) %>
+        <span class="form--label-required" aria-hidden="true">*</span>
+      </span>
+    </label>
+
+    <div class="form--field-container">
+      <%= f.number_field :duration,
+            id: 'meeting-form-duration',
+            required: true,
+            size:     5,
+            no_label: true,
+            min:      0.00,
+            step:     0.25,
+            max:      168,
+            suffix:   t(:text_in_hours),
+            container_class: '-xslim' %>
+    </div>
+  </div>
+  <div class="form--field">
+    <label class="form--label -required" title="Title" for="meeting_title"><b>Add Location</b></label>
+    <span class="form--field-container">
+      <span class="form--text-field-container -wide">
+        <input required="required" size="60" container_class="-wide" class="form--text-field" aria-required="true" type="text">
+      </span>
+    </span>
+  </div>
+
+  
+</section>
+
+<section class="form--section" style="display:none;">
 
   <div class="form--field">
     <%= f.text_field :title, :required => true, :size => 60, container_class: '-wide' %>
