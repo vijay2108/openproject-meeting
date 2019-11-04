@@ -19,9 +19,6 @@ See doc/COPYRIGHT.md for more details.
 
 ++#%>
 
-<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
-<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
-
 <% html_title l(:label_meeting_plural) %>
 
 <%= toolbar title: l(:label_meeting_plural), project: @project.name.titleize do %>
@@ -78,9 +75,9 @@ See doc/COPYRIGHT.md for more details.
 <!--  </div>-->
 <%# end -%>
 
-<p class="pagination">
-  <%= pagination_links_full @meetings, :container => false %>
-</p>
+<!--<p class="pagination">-->
+  <%#= pagination_links_full @meetings, :container => false %>
+<!--</p>-->
 
 
 <div id="add-meeting-button" class="aside-panel-outer">
