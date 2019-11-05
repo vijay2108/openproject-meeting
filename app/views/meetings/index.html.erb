@@ -91,8 +91,8 @@ See doc/COPYRIGHT.md for more details.
         <%= labelled_tabular_form_for @meeting, :url => {:controller => '/meetings', :action => 'create', :project_id => @project}, :html => {:id => 'meeting-form'} do |f| -%>
           <%= render :partial => 'meetings/form', :locals => {:f => f} %>
           <div class="aside-footer text-right">
-            <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>
-            <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-btn' %>
+            <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-first' %>
+            <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>            
         <% end %>
         </div>
       </div>
@@ -123,6 +123,10 @@ See doc/COPYRIGHT.md for more details.
               </span>
             </span>
 					</div>
+          <div class="aside-footer text-right">            
+            <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-second' %>
+            <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>
+          </div>
         </section>
       </div>
     </div>
@@ -144,7 +148,11 @@ See doc/COPYRIGHT.md for more details.
                 <input class="form--text-field" aria-required="true" type="text">        
               </span>
             </span>
-					</div>          
+					</div> 
+          <div class="aside-footer text-right">            
+            <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-third' %>
+            <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>
+          </div>         
         </section>
       </div>
     </div>
