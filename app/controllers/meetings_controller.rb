@@ -49,7 +49,7 @@ class MeetingsController < ApplicationController
 
     @all_meetings = Array.new
     @meetings.each do |meeting|
-      @all_meetings << Hash[*['title', meeting.title, 'start', (meeting.start_time.strftime("%Y-%m-%dT%H:%M:%S")), 'end', (meeting.start_time.strftime("%Y-%m-%dT")+Time.parse(format_time meeting.end_time, false).strftime("%H:%M:%S"))]]
+      @all_meetings << Hash[*['title', meeting.title, 'start', (meeting.start_time.strftime("%Y-%m-%dT%H:%M:%S")), 'end', (meeting.start_time.strftime("%Y-%m-%dT")+Time.parse(format_time meeting.end_time, false).strftime("%H:%M:%S")), 'url', meeting_path(meeting)]]
     end
     @all_meetings
 

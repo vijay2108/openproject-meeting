@@ -69,6 +69,12 @@ See doc/COPYRIGHT.md for more details.
       <p><strong><%= Meeting.human_attribute_name(:location) %></strong>: <%=h @meeting.location %></p>
     </div>
     <div class="grid-content small-12">
+      <p><strong>Description</strong>: <%= h @meeting.description %></p>
+    </div>
+    <div class="grid-content small-12">
+      <p><strong>Expected Result</strong>: <%= h @meeting.results %></p>
+    </div>
+    <div class="grid-content small-12">
       <p><strong><%= Meeting.human_attribute_name(:participants_invited) %></strong>: <%= format_participant_list @meeting.participants.invited %></p>
     </div>
     <div class="grid-content small-12">
