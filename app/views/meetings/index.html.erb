@@ -25,7 +25,7 @@ See doc/COPYRIGHT.md for more details.
   <% if authorize_for(:meetings, :new) %>
     <li class="toolbar-item">
       <a href="#<%#= new_meeting_path %>"
-         data-target="add-meeting-button"         
+         data-target="add-meeting-button"
          title="<%= I18n.t(:label_meeting_new) %>"
          arial-label="<%= I18n.t(:label_meeting_new) %>"
          class="button -alt-highlight first-modal">
@@ -47,17 +47,17 @@ See doc/COPYRIGHT.md for more details.
 <!--  </div>-->
 <%# else -%>
 <!--  <div class="meetings meetings_by_month_year" id="activity">-->
-    <%# @meetings_by_start_year_month_date.each do |year,meetings_by_start_month_date| -%>
-      <%# meetings_by_start_month_date.each do |month,meetings_by_start_date| -%>
+<%# @meetings_by_start_year_month_date.each do |year,meetings_by_start_month_date| -%>
+<%# meetings_by_start_month_date.each do |month,meetings_by_start_date| -%>
 <!--        <h3 class="month_year"><%#= ::I18n.t('date.month_names')[month] + " #{year}" %></h3>-->
 <!--        <div class="meetings_by_date widget-boxes -flex">-->
-          <%# meetings_by_start_date.each do |date,meetings| -%>
+<%# meetings_by_start_date.each do |date,meetings| -%>
 <!--            <div class="widget-box">-->
 <!--              <h4 id="<%#= date.strftime("%m-%d-%Y") %>" class="date"><%#= format_activity_day(date) %></h4>-->
 <!--              <dl class="meetings">-->
-                <%# meetings.each do |meeting| -%>
+<%# meetings.each do |meeting| -%>
 <!--                  <dt class="meeting" id="meeting-<%#= meeting.id %>">-->
-                    <%#= link_to h(meeting.title), :controller => '/meetings', :action => 'show', :id => meeting %>
+<%#= link_to h(meeting.title), :controller => '/meetings', :action => 'show', :id => meeting %>
 <!--                  </dt>-->
 <!--                  <dd class="meeting" id="meeting-<%#= meeting.id %>">-->
 <!--                    <p><strong><%#= Meeting.human_attribute_name(:time) %></strong>: <%#= format_time meeting.start_time, false %>-<%#= format_time meeting.end_time, false %></p>-->
@@ -65,99 +65,134 @@ See doc/COPYRIGHT.md for more details.
 <!--                    <p><strong><%#= Meeting.human_attribute_name(:participants_invited) %></strong> (<%#= meeting.participants.select(&:invited).count %>): <%#= format_participant_list meeting.participants.select(&:invited) %></p>-->
 <!--                    <p><strong><%#= Meeting.human_attribute_name(:participants_attended) %></strong> (<%#= meeting.participants.select(&:attended).count %>): <%#= format_participant_list meeting.participants.select(&:attended) %></p>-->
 <!--                  </dd>-->
-                <%# end -%>
+<%# end -%>
 <!--              </dl>-->
 <!--            </div>-->
-          <%# end -%>
+<%# end -%>
 <!--        </div>-->
-      <%# end -%>
-    <%# end -%>
+<%# end -%>
+<%# end -%>
 <!--  </div>-->
 <%# end -%>
 
 <!--<p class="pagination">-->
-  <%#= pagination_links_full @meetings, :container => false %>
+<%#= pagination_links_full @meetings, :container => false %>
 <!--</p>-->
 
-
-<div id="add-meeting-button" class="aside-panel-outer">
-  <div class="aside-panel aside-panel-first">
-    <div class="aside-content px-30">
-      <div class="aside-header d-flex justify-content-between align-items-center">
-        <h6 class="m-0"><%= l(:label_meeting_new) %></h6>
-        <div class="close-panel-first"><a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a></div>
-      </div>
-      <div class="aside-body create-news py-20">
-        <%= labelled_tabular_form_for @meeting, :url => {:controller => '/meetings', :action => 'create', :project_id => @project}, :html => {:id => 'meeting-form'} do |f| -%>
+<%= labelled_tabular_form_for @meeting, :url => {:controller => '/meetings', :action => 'create', :project_id => @project}, :html => {:id => 'meeting-form'} do |f| -%>
+  <div id="add-meeting-button" class="aside-panel-outer">
+    <div class="aside-panel aside-panel-first">
+      <div class="aside-content px-30">
+        <div class="aside-header d-flex justify-content-between align-items-center">
+          <h6 class="m-0"><%= l(:label_meeting_new) %></h6>
+          <div class="close-panel-first"><a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a></div>
+        </div>
+        <div class="aside-body create-news py-20">
           <%= render :partial => 'meetings/form', :locals => {:f => f} %>
           <div class="aside-footer text-right">
             <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-first' %>
-            <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>            
-        <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="aside-panel aside-panel-second metting-objectives">
-    <div class="aside-content px-30">
-      <div class="aside-header d-flex justify-content-between align-items-center">
-        <h6 class="m-0">MEETING OBJECTIVES</h6>
-        <div class="close-panel-second">
-          <a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a>
-        </div>
-      </div>
-      <div class="aside-body create-news py-20">
-        <section class="form--section create-metting">
-					<div class="form--field">
-            <span class="form--field-container">
-              <span class="form--text-field-container -wide">
-                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>                
-              </span>
-            </span>
-					</div>
-          <div class="form--field">
-						<label class="form--label -required" title="Title" for="meeting_title">EXPECTED RESULTS</label>
-            <span class="form--field-container">
-              <span class="form--text-field-container -wide">
-                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>                
-              </span>
-            </span>
-					</div>
-          <div class="aside-footer text-right">            
-            <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-second' %>
             <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>
           </div>
-        </section>
-      </div>
-    </div>
-  </div>			
-  <div class="aside-panel aside-panel-third add-guests">
-    <div class="aside-content px-30">
-      <div class="aside-header d-flex justify-content-between align-items-center">
-        <h6 class="m-0">ADD GUESTS</h6>
-        <div class="close-panel-third">
-          <a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a>
         </div>
       </div>
-      <div class="aside-body create-news py-20">
-        <section class="form--section create-metting">
-					<div class="form--field">
-            <label class="form--label -required" title="Title" for="meeting_title">NAME</label>
+    </div>
+    <div class="aside-panel aside-panel-second metting-objectives">
+      <div class="aside-content px-30">
+        <div class="aside-header d-flex justify-content-between align-items-center">
+          <h6 class="m-0">MEETING OBJECTIVES</h6>
+          <div class="close-panel-second">
+            <a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a>
+          </div>
+        </div>
+        <div class="aside-body create-news py-20">
+          <section class="form--section create-metting">
+            <div class="form--field">
             <span class="form--field-container">
               <span class="form--text-field-container -wide">
-                <input class="form--text-field" aria-required="true" type="text">        
+<!--                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>-->
+                <%= f.text_area :description, rows: 5, class: "form--textarea-field" %>
               </span>
             </span>
-					</div> 
-          <div class="aside-footer text-right">            
-            <%= styled_button_tag l(:button_cancel), class: 'button -light-gray close-panel-third' %>
-            <%= styled_button_tag l(:button_add), class: 'button -alt-highlight ml-20' %>
-          </div>         
-        </section>
+            </div>
+            <div class="form--field">
+              <!--						<label class="form--label -required" for="meeting_description">EXPECTED RESULTS</label>-->
+              <span class="form--field-container">
+              <span class="form--text-field-container -wide">
+<!--                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>-->
+                <%= f.text_area :results, rows: 5, class: "form--textarea-field" %>
+              </span>
+            </span>
+            </div>
+            <div class="aside-footer text-right">
+              <%= styled_button_tag l(:button_cancel), type: 'button', class: 'button -light-gray close-panel-second' %>
+              <%= styled_button_tag l(:button_add), type: 'button', class: 'button -alt-highlight ml-20 add-panel-second', onclick: 'jQuery(".close-panel-second").trigger("click");' %>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="aside-panel aside-panel-third add-guests">
+      <div class="aside-content px-30">
+        <div class="aside-header d-flex justify-content-between align-items-center">
+          <h6 class="m-0">ADD GUESTS</h6>
+          <div class="close-panel-third">
+            <a href="javascript:void(0)"><em class="icon icon-close d-block"></em></a>
+          </div>
+        </div>
+        <div class="aside-body create-news py-20">
+          <section class="form--section create-metting">
+            <div class="form--field">
+              <label class="form--label -required" for="meeting_name">NAME</label>
+              <span class="form--field-container">
+              <table class="form--matrix">
+                <thead>
+                  <tr class="form--matrix-header-row">
+                    <th class="form--matrix-header-cell"><%= Meeting.human_attribute_name(:name) %></th>
+                    <th class="form--matrix-header-cell"><%= Meeting.human_attribute_name(:participants_invited) %></th>
+                    <th class="form--matrix-header-cell"><%= Meeting.human_attribute_name(:participants_attended) %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @meeting.all_changeable_participants.sort.each do |user| -%>
+                  <%= hidden_field_tag "meeting[participants_attributes][][user_id]", user.id %>
+                  <tr class="form--matrix-row">
+                    <td class="form--matrix-cell"><%=h user %></td>
+                    <% if @meeting.participants.present? && participant = @meeting.participants.detect{|p| p.user_id == user.id} -%>
+                      <%= hidden_field_tag "meeting[participants_attributes][][id]", participant.id %>
+                      <td class="form--matrix-checkbox-cell">
+                        <%= label_tag "checkbox_invited_#{user.id}", user.name + " " + t(:description_invite), :class => "hidden-for-sighted" %>
+                        <%= styled_check_box_tag "meeting[participants_attributes][][invited]", 1, participant.invited?, :id => "checkbox_invited_#{user.id}" %>
+                      </td>
+                      <td class="form--matrix-checkbox-cell">
+                        <%= label_tag "checkbox_attended_#{user.id}", user.name + " " + t(:description_attended), :class => "hidden-for-sighted" %>
+                        <%= styled_check_box_tag "meeting[participants_attributes][][attended]", 1, participant.attended?, :id => "checkbox_attended_#{user.id}" %>
+                      </td>
+                    <% else -%>
+                      <td class="form--matrix-checkbox-cell">
+                        <%= label_tag "checkbox_invited_#{user.id}", user.name + " " + t(:description_invite), :class => "hidden-for-sighted" %>
+                        <%= styled_check_box_tag "meeting[participants_attributes][][invited]", value = "1", checked = false, :id => "checkbox_invited_#{user.id}" %>
+                      </td>
+                      <td class="form--matrix-checkbox-cell">
+                        <%= label_tag "checkbox_attended_#{user.id}", user.name + " " + t(:description_attended), :class => "hidden-for-sighted" %>
+                        <%= styled_check_box_tag "meeting[participants_attributes][][attended]", value = "1", checked = false, :id => "checkbox_attended_#{user.id}" %>
+                      </td>
+                    <% end -%>
+                  </tr>
+                  <% end -%>
+                </tbody>
+              </table>
+            </span>
+            </div>
+            <div class="aside-footer text-right">
+              <%= styled_button_tag l(:button_cancel), type: 'button', class: 'button -light-gray close-panel-third' %>
+              <%= styled_button_tag l(:button_add), type: 'button', class: 'button -alt-highlight ml-20 add-panel-third', onclick: 'jQuery(".close-panel-third").trigger("click");' %>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <%#= render :partial => 'shared/meeting_header' %>
 
@@ -174,4 +209,22 @@ See doc/COPYRIGHT.md for more details.
         schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
         events: <%= @all_meetings.to_json.html_safe %>
     });
+
+    jQuery(document).ready(function() {
+     jQuery('.add-panel-second').prop('disabled', true);
+     jQuery('#meeting_description, #meeting_results').keyup(function() {
+        if(jQuery('#meeting_description').val() != '' && jQuery('#meeting_results').val() != '') {
+           jQuery('.add-panel-second').prop('disabled', false);
+        }
+        else if(jQuery('#meeting_description').val() != '' && jQuery('#meeting_results').val() == '') {
+           jQuery('.add-panel-second').prop('disabled', true);
+        }
+        else if(jQuery('#meeting_description').val() == '' && jQuery('#meeting_results').val() != '') {
+           jQuery('.add-panel-second').prop('disabled', true);
+        }
+        else if(jQuery('#meeting_description').val() == '' && jQuery('#meeting_results').val() == '') {
+           jQuery('.add-panel-second').prop('disabled', true);
+        }
+     });
+   });
 </script>
