@@ -110,7 +110,7 @@ See doc/COPYRIGHT.md for more details.
             <span class="form--field-container">
               <span class="form--text-field-container -wide">
 <!--                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>-->
-                <%= f.text_area :description, @meeting.description.present? ? @meeting.description : '', rows: 5, class: "form--textarea-field" %>
+                <%= f.text_area :description, rows: 5, class: "form--textarea-field" %>
               </span>
             </span>
             </div>
@@ -119,7 +119,7 @@ See doc/COPYRIGHT.md for more details.
               <span class="form--field-container">
               <span class="form--text-field-container -wide">
 <!--                <textarea rows="5" class="form--textarea-field" placeholder="Enter Description"></textarea>-->
-                <%= f.text_area :results, @meeting.results.present? ? @meeting.results : '', rows: 5, class: "form--textarea-field" %>
+                <%= f.text_area :results, rows: 5, class: "form--textarea-field" %>
               </span>
             </span>
             </div>
